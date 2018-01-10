@@ -21,4 +21,4 @@ the keyboard input element - semantic markup to represent a span of inline text 
 
 # TODO
 
-0. implement using AMD instead of revealing module pattern
+0. read about AMD
