@@ -13,11 +13,25 @@ const typeAheadModule = (function() {
 		return parseInt(population, 10).toLocaleString('en-US');
 	}
 
+	function formatPop(pop) {
+		let formatted = '';
+		let c = 0;
+		for (let i = pop.length - 1; i > -1; i--) {
+			formatted = pop[i] + formatted;
+			c += 1;
+			if (c === 3 && i > 0) {
+				formatted = ',' + formatted;
+				c = 0;
+			}
+		}
+		return formatted;
+	}
+
 	function displayMatches(matches) {
 		const html = matches.map(match => {
 			const cityMatch = addHighlight(match.city);
 			const stateMatch = addHighlight(match.state);
-			const population = formatPopulation(match.population);
+			const population = formatPop(match.population);
 			return `
 				<li>
 					<span>${cityMatch}, ${stateMatch}</span>
