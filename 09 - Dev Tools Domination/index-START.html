@@ -6,7 +6,7 @@
 </head>
 <body>
 
-  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+  <p onClick="makeGreen()" class="clickable" data-name="paragraph">×BREAK×DOWN×</p>
 
   <script>
     const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
@@ -18,28 +18,78 @@
     }
 
     // Regular
+    console.log('console.log() logs');
 
     // Interpolated
+    console.log('string with %s', 'interpolation');
+    let s = 'backticks';
+    console.log(`Or you can just use ES6 template strings with ${s}`);
 
     // Styled
+    console.log('%cthis seems annoying', 'background-color: pink');
 
     // warning!
+    console.warn('I\'m a warning');
 
     // Error :|
+    console.error('I\'m an error');
 
     // Info
+    console.info('here is some info');
 
     // Testing
+    console.assert('', 'empty string is falsey');
 
     // clearing
+    // console.clear(); // at least it tells you the console was cleared
 
     // Viewing DOM Elements
+    let p = document.querySelector('p');
+    console.dir(p);
 
     // Grouping together
+    dogs.forEach(dog => {
+      console.groupCollapsed(`${dog.name}`);
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      let dogYears = dog.age * 7;
+      console.log(`That's ${dogYears} in dog years!`);
+      console.groupEnd();
+    });
 
     // counting
+    console.count(p);
+    console.count(p);
 
     // timing
+    console.time('delayPrint');
+
+    for (let i = 1; i < 11; i++) {
+      setTimeout(() => {
+        console.log(i);
+        if (i === 10) console.timeEnd('delayPrint');
+      }, i * 1000);
+    }
+
+    // function delayPrint(i) {
+    //   setTimeout(function() {
+    //     console.log(i);
+    //     if (i === 10) console.timeEnd('delayPrint');
+    //   }, i * 1000);
+    // }
+
+    // for (var i = 1; i < 11; i++) {
+    //   delayPrint(i);
+    // }
+
+    // for (var i = 1; i < 11; i++) {
+    //   (function(i) {
+    //     setTimeout(() => {
+    //       console.log(i);
+    //       if (i === 10) console.timeEnd('delayPrint');
+    //     }, i * 1000);
+    //   })(i);
+    // }
 
   </script>
 </body>
