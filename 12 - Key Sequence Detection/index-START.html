@@ -7,6 +7,20 @@
 </head>
 <body>
 <script>
+let buffer = [];
+const target = 'hello';
+
+function checkForTarget(ev) {
+	buffer.push(ev.key);
+	buffer.splice(-buffer.length - 1, (buffer.length - target.length));
+
+	if (buffer.join('').includes(target)) {
+		cornify_add();
+	}
+}
+
+window.addEventListener('keydown', checkForTarget);
+
 </script>
 </body>
 </html>
