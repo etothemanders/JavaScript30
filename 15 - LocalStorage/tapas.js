@@ -1,7 +1,10 @@
 const tapasModule = (function() {
 	const addItems = document.querySelector('.add-items');
 	const itemsList = document.querySelector('.plates');
-	const items = JSON.parse(localStorage.getItem('items')) || [];
+	let items = JSON.parse(localStorage.getItem('items')) || [];
+	const clearButton = document.querySelector('[name="clear"]');
+	const checkButton = document.querySelector('[name="check-all"]');
+	const uncheckButton = document.querySelector('[name="uncheck-all"]');
 
 	function populateItems(plates, platesList) {
 		platesList.innerHTML = plates.map((plate, i) => {
@@ -38,9 +41,30 @@ const tapasModule = (function() {
 		populateItems(items, itemsList);
 	}
 
+	function clearAll() {
+		items = [];
+		localStorage.setItem('items', JSON.stringify(items));
+		populateItems(items, itemsList);
+	}
+
+	function checkAll() {
+		items.forEach(item => item.done = true);
+		localStorage.setItem('items', JSON.stringify(items));
+		populateItems(items, itemsList);
+	}
+
+	function uncheckAll() {
+		items.forEach(item => item.done = false);
+		localStorage.setItem('items', JSON.stringify(items));
+		populateItems(items, itemsList);
+	}
+
 	function init() {
 		addItems.addEventListener('submit', addItem);
 		itemsList.addEventListener('click', toggleDone);
+		clearButton.addEventListener('click', clearAll);
+		checkButton.addEventListener('click', checkAll);
+		uncheckButton.addEventListener('click', uncheckAll);
 		populateItems(items, itemsList);
 	}
 
