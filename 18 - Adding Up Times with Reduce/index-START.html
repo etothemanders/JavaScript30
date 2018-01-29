@@ -182,6 +182,38 @@
     </li>
   </ul>
 <script>
+const videoNodes = document.querySelectorAll('[data-time]');
+const times = Array.from(videoNodes).map(video => {
+	const stringTime = video.dataset.time;
+	const parsedTimes = stringTime.split(':');
+	const seconds = parseInt(parsedTimes.pop(), 10) || 0;
+	const minutes = parseInt(parsedTimes.pop(), 10) || 0;
+	return {
+		seconds,
+		minutes,
+	};
+});
+
+
+const totalTime = times.reduce((acc, time) => {
+	// add the seconds
+	acc.seconds += time.seconds;
+	acc.minutes += Math.floor(acc.seconds / 60);
+	acc.seconds = acc.seconds % 60;
+
+	// add the minutes
+	acc.minutes += time.minutes;
+	acc.hours += Math.floor(acc.minutes / 60);
+	acc.minutes = acc.minutes % 60;
+
+	return acc;
+}, {
+	seconds: 0,
+	minutes: 0,
+	hours: 0,
+});
+
+console.log(totalTime);
 </script>
 </body>
 </html>
