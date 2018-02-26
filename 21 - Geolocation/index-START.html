@@ -50,6 +50,7 @@
       font-size: 60px;
       display:flex;
       align-items: center;
+      text-align: center;
     }
 
     .units {
@@ -58,6 +59,31 @@
     /*Compass: https://thenounproject.com/search/?q=compass&i=592352*/
   </style>
   <script>
+    const compassModule = (function() {
+      function init() {
+        const arrow = document.querySelector('.arrow');
+        const speed = document.querySelector('.speed-value');
+
+        const success = (position) => {
+          speed.textContent = position.coords.speed;
+          arrow.style.transform = `rotate(${position.coords.heading}deg)`;
+        };
+        const error = (err) => console.error(err);
+
+        if (navigator.geolocation) {
+          navigator.geolocation.watchPosition(success, error);
+        } else {
+          const errorMessage = document.querySelector('.speed');
+          errorMessage.textContent = 'Sorry, your browser doesn\'t support geolocation.';
+        }
+      }
+
+      return {
+        init: init,
+      };
+    })();
+
+    window.onload = compassModule.init();
   </script>
 </body>
 </html>
