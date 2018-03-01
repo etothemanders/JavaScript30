@@ -29,16 +29,42 @@
   }
 
   .two {
-    background:mistyrose;
+    background: mistyrose;
   }
 
   .three {
-    background:coral;
+    background: coral;
   }
 </style>
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div');
+
+  function logClassList(ev) {
+    // Stop propagating the event after the first event which triggers it
+    // logs 'three' by default when capture is false, 'one' when capture is true
+    // ev.stopPropagation();
+    console.log(this.classList.value);
+  }
+
+  // By default, capture option is false, 
+  // i.e. run the callback on event bubbling, not on event capture
+  // logs 'three', 'two', 'one'
+  divs.forEach(div => div.addEventListener('click', logClassList, { capture: false }));
+
+  // Run the callback on event capture
+  // logs 'one', 'two', 'three'
+  // divs.forEach(div => div.addEventListener('click', logClassList, { capture: true }));
+
+  // Only run the callback once
+  // logs 'three', 'two', 'one' once per page load
+  // divs.forEach(div => div.addEventListener('click', logClassList, { once: true }));
+
+  // Can also be used with capture option
+  // logs 'one', 'two', 'three' only once per page load
+  // divs.forEach(div => div.addEventListener('click', logClassList, { capture: true, once: true }));
+
 
 </script>
 </body>
